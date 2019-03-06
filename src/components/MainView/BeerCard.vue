@@ -2,7 +2,7 @@
   <article class="box">
     <div class="media">
       <div class="media-left">
-        <figure class="image is-40x40 beer-image" @click="showImage()">
+        <figure class="image is-40x40 beer-image" @click="showImage([beer.image_url, beer.name])">
           <img class="is-rounded" :src="beer.image_url" :alt="beer.name">
         </figure>
       </div>
@@ -29,7 +29,7 @@
 <script>
 import BeerImageModal from "@/components/MainView/BeerImageModal";
 export default {
-  name: "Beer Card",
+  name: "BeerCard",
   data() {
     return {
       beer: {
@@ -52,11 +52,15 @@ export default {
     };
   },
   methods: {
-    showImage() {
+    showImage(data) {
       this.$modal.open({
         parent: this,
         component: BeerImageModal,
-        hasModalCard: true
+        hasModalCard: true,
+        props: {
+          url: data[0],
+          alt: data[1]
+        }
       });
     }
   }

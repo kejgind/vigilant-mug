@@ -7,7 +7,10 @@
       </b-select>
     </b-field>
     <div v-if="selectedBrewery">
-      <h2 class="title is-5">List of beers from {{selectedBrewery}}</h2>
+      <h2 class="is-size-5 brewery-title">
+        List of beers from
+        <strong>{{selectedBrewery}}</strong>
+      </h2>
       <BeerCard/>
       <button
         class="button is-warning"
@@ -22,18 +25,31 @@
 <script>
 import BeerCard from "@/components/MainView/BeerCard";
 export default {
-  name: "Brewery Column",
+  name: "BreweryColumn",
   components: { BeerCard },
   data() {
     return {
-      breweries: ["Coors UK", "Molson", "G A Miller"],
       selectedBrewery: "",
+      beersByBrewery: [],
       loading: false
     };
   },
   methods: {
     loadMore() {
       return;
+    },
+    getBeersByBrewery() {
+      if (this.selectedBrewery) {
+        this.$store.dispatch("getBeersByBrewery", this.selectedBrewery);
+      }
+    }
+  },
+  computed: {
+    breweries() {
+      return this.$store.getters.allBrewers;
+    },
+    onceLoaded() {
+      return this.$store.getters.loadAtOnce;
     }
   }
 };
@@ -42,6 +58,10 @@ export default {
 <style lang="scss" scoped>
 .brewery-column {
   box-shadow: 1px 1px 5px rgb(244, 244, 244);
+}
+.brewery-title {
+  height: 60px;
+  line-height: 1.2;
 }
 </style>
 

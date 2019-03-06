@@ -13,11 +13,7 @@
 <script>
 import BreweryColumn from "@/components/MainView/BreweryColumn";
 export default {
-  name: "Main App View",
-  components: { BreweryColumn },
-  data() {
-    //
-  }
+  name: "MainView",
+  components: { BreweryColumn }
 };
 </script>
-
