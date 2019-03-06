@@ -2,7 +2,7 @@
   <article class="box">
     <div class="media">
       <div class="media-left">
-        <figure class="image is-40x40" @click="showImage()">
+        <figure class="image is-40x40 beer-image" @click="showImage()">
           <img class="is-rounded" :src="beer.image_url" :alt="beer.name">
         </figure>
       </div>
@@ -55,7 +55,8 @@ export default {
     showImage() {
       this.$modal.open({
         parent: this,
-        component: BeerImageModal
+        component: BeerImageModal,
+        hasModalCard: true
       });
     }
   }
@@ -65,6 +66,9 @@ export default {
 <style lang="scss" scoped>
 .media-text:not(:last-of-type) {
   margin-bottom: 0.3rem;
+}
+.beer-image {
+  cursor: pointer;
 }
 </style>
 

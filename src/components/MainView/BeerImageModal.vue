@@ -1,7 +1,7 @@
 <template>
-  <figure class="beer-img-modal">
+  <div class="modal-card" style="width: auto">
     <img :src="image_url" :alt="name">
-  </figure>
+  </div>
 </template>
 
 <script>
@@ -15,11 +15,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.beer-img-modal {
-  text-align: center;
-}
-</style>
-
-

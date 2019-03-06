@@ -9,6 +9,12 @@
     <div v-if="selectedBrewery">
       <h2 class="title is-5">List of beers from {{selectedBrewery}}</h2>
       <BeerCard/>
+      <button
+        class="button is-warning"
+        :class="{'is-loading': loading}"
+        :disabled="loading"
+        @click="loadMore()"
+      >Show more beers</button>
     </div>
   </section>
 </template>
@@ -21,8 +27,14 @@ export default {
   data() {
     return {
       breweries: ["Coors UK", "Molson", "G A Miller"],
-      selectedBrewery: ""
+      selectedBrewery: "",
+      loading: false
     };
+  },
+  methods: {
+    loadMore() {
+      return;
+    }
   }
 };
 </script>
