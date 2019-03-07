@@ -20,4 +20,24 @@ export default {
   SET_THEME_OPTION(state, payload) {
     state.layoutDark = payload;
   },
+  ADD_EMPTY_SELECTED_BREWERY(state, payload) {
+    if (state.selectedBrewers.length === state.columnsNumber) {
+      return;
+    }
+    state.selectedBrewers = [...state.selectedBrewers, payload];
+  },
+  SET_SELECTED_BREWERY(state, payload) {
+    state.selectedBrewers.map(brewer =>
+      brewer.colId === payload.colId
+        ? (brewer.selectedBrewer = payload.selectedBrewer)
+        : ""
+    );
+  },
+  INITIALIZE_STORE(state) {
+    if (sessionStorage.getItem("store")) {
+      this.replaceState(
+        Object.assign(state, JSON.parse(sessionStorage.getItem("store")))
+      );
+    }
+  },
 };

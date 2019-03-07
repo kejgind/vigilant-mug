@@ -6,7 +6,14 @@ import actions from "./actions";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const sessionState = store => {
+  store.subscribe((mutation, state) => {
+    // Store the state object as a JSON string
+    sessionStorage.setItem("store", JSON.stringify(state));
+  });
+};
+
+export const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== "production",
   state: {
     beers: [],
@@ -16,8 +23,10 @@ export default new Vuex.Store({
     loadAtOnce: 15,
     columnsNumber: 3,
     error: null,
+    selectedBrewers: [],
   },
   getters,
   mutations,
   actions,
+  plugins: [sessionState],
 });

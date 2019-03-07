@@ -34,6 +34,18 @@ export default {
       showButton: true
     };
   },
+  created() {
+    this.$store.dispatch("addEmptyBrewery", {
+      colId: this.colKey,
+      selectedBrewer: this.selectedBrewery
+    });
+    this.$store.getters.loadSelectedBrewers.filter(brewer =>
+      brewer.colId === this.colKey
+        ? (this.selectedBrewery = brewer.selectedBrewer)
+        : ""
+    );
+    this.getBeersByBrewery();
+  },
   methods: {
     loadMore() {
       const nextBeersBatchToLoad = this.allBeersByBrewery.splice(
@@ -55,6 +67,12 @@ export default {
       if (!this.selectedBrewery) {
         return;
       }
+
+      this.$store.dispatch("addSelectedBrewer", {
+        colId: this.colKey,
+        selectedBrewer: this.selectedBrewery
+      });
+
       const allBeers = this.$store.getters.allBeers;
       const filteredBeersByBrewery = allBeers.filter(beer => {
         return beer.brewer === this.selectedBrewery;

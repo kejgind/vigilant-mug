@@ -17,4 +17,7 @@ export default {
   columnsNumber(state) {
     return state.columnsNumber;
   },
+  loadSelectedBrewers(state) {
+    return state.selectedBrewers;
+  },
 };

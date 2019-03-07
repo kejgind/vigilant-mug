@@ -28,4 +28,10 @@ export default {
         commit("SET_ERROR", error);
       });
   },
+  addEmptyBrewery({ commit }, payload) {
+    commit("ADD_EMPTY_SELECTED_BREWERY", payload);
+  },
+  addSelectedBrewer({ commit }, payload) {
+    commit("SET_SELECTED_BREWERY", payload);
+  },
 };
