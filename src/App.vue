@@ -11,11 +11,13 @@ import MainView from "@/components/MainView/MainView";
 export default {
   name: "app",
   components: { Navbar, MainView },
-  data() {
-    return {};
+  beforeCreate() {
+    this.$store.commit("INITIALIZE_STORE");
   },
   created() {
-    this.$store.dispatch("getAllBeers");
+    if (this.$store.getters.allBeers.length === 0) {
+      this.$store.dispatch("getAllBeers");
+    }
   },
   computed: {
     themeIsDark() {
