@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <nav class="navbar" :class="[themeIsDark ? 'is-dark' : 'is-light']" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand is-size-5 is-uppercase has-text-weight-bold">
         <p class="navbar-item">Vigilant-mug</p>
@@ -24,6 +24,11 @@ export default {
         component: OptionsModal,
         hasModalCard: true
       });
+    }
+  },
+  computed: {
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
     }
   }
 };

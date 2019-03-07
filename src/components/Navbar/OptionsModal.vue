@@ -1,14 +1,17 @@
 <template>
   <div class="modal-card" style="width: auto">
-    <header class="modal-card-head">
-      <p class="modal-card-title">App Options</p>
+    <header class="modal-card-head" :class="[themeIsDark? 'has-background-dark' : '']">
+      <p class="modal-card-title" :class="[themeIsDark? 'has-text-light' : '']">App Options</p>
     </header>
-    <section class="modal-card-body">
+    <section
+      class="modal-card-body"
+      :class="[themeIsDark? 'has-background-dark has-text-light' : '']"
+    >
       <p class="modal-subtitle is-size-6 has-text-weight-semibold">Theme Layout</p>
       <div class="field">
         <b-switch
           v-model="layoutDark"
-          type="is-dark"
+          type="is-success"
         >{{layoutDark ? layoutInfo.dark : layoutInfo.light}}</b-switch>
       </div>
 
@@ -35,8 +38,13 @@
       </b-field>
     </section>
 
-    <footer class="modal-card-foot">
-      <button class="button is-dark" type="button" @click="$parent.close()">Close</button>
+    <footer class="modal-card-foot" :class="[themeIsDark? 'has-background-dark' : '']">
+      <button
+        class="button"
+        :class="[themeIsDark? 'is-success' : 'is-dark']"
+        type="button"
+        @click="$parent.close()"
+      >Close</button>
     </footer>
   </div>
 </template>
@@ -81,6 +89,9 @@ export default {
       set(value) {
         this.$store.commit("SET_THEME_OPTION", value);
       }
+    },
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
     }
   }
 };
