@@ -1,4 +1,7 @@
 export default {
+  allBeers(state) {
+    return state.beers;
+  },
   allBrewers(state) {
     return state.brewers;
   },
@@ -10,5 +13,8 @@ export default {
   },
   layoutDark(state) {
     return state.layoutDark;
+  },
+  columnsNumber(state) {
+    return state.columnsNumber;
   },
 };

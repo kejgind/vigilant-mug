@@ -17,9 +17,6 @@
 import OptionsModal from "./OptionsModal";
 export default {
   name: "Navbar",
-  data() {
-    return {};
-  },
   methods: {
     showModal() {
       this.$modal.open({

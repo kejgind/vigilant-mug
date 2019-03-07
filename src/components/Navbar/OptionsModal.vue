@@ -26,7 +26,11 @@
       <p class="modal-subtitle is-size-6 has-text-weight-semibold">Sort beers by:</p>
       <b-field>
         <b-select v-model="sortBeersBy" placeholder="Sort beers by">
-          <option v-for="(option, index) in sortOptions" :value="option" :key="index">{{ option }}</option>
+          <option
+            v-for="(option, index) in sortOptions"
+            :key="index"
+            :value="option.title"
+          >{{ option.description }}</option>
         </b-select>
       </b-field>
     </section>
@@ -46,7 +50,11 @@ export default {
         light: "Light Theme",
         dark: "Dark Theme"
       },
-      sortOptions: ["name", "price", "type"]
+      sortOptions: [
+        { title: "name", description: "Beer name" },
+        { title: "pricePerLitre", description: "Beer price per litre" },
+        { title: "type", description: "Beer type" }
+      ]
     };
   },
   computed: {
