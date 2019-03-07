@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="[themeIsDark? 'has-background-grey-dark' : '']">
     <Navbar/>
     <MainView/>
   </div>
@@ -16,9 +16,17 @@ export default {
   },
   created() {
     this.$store.dispatch("getAllBeers");
+  },
+  computed: {
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
+    }
   }
 };
 </script>
 
 <style lang="scss">
+#app {
+  min-height: 100vh;
+}
 </style>

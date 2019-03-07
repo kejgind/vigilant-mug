@@ -1,5 +1,5 @@
 <template>
-  <section class="column brewery-column">
+  <section class="column" :class="[themeIsDark ? 'brewery-column-dark' : 'brewery-column-light']">
     <b-field>
       <b-select v-model="selectedBrewery" @click.native="getBeersByBrewery()">
         <option disabled value>Select brewery</option>
@@ -7,16 +7,12 @@
       </b-select>
     </b-field>
     <div v-if="selectedBrewery">
-      <h2 class="is-size-5 brewery-title">
+      <h2 class="is-size-5 brewery-title" :class="[themeIsDark ? 'has-text-light' : '']">
         List of beers from
-        <strong>{{selectedBrewery}}</strong>
+        <strong :class="[themeIsDark ? 'has-text-light' : '']">{{selectedBrewery}}</strong>
       </h2>
       <BeerCard v-for="beer in showedBeersByBrewery" :key="beer.beer_id" :beer="beer"/>
-      <button
-        v-if="showButton"
-        class="button is-warning"
-        @click="loadMore()"
-      >Show more beers</button>
+      <button v-if="showButton" class="button is-warning" @click="loadMore()">Show more beers</button>
     </div>
   </section>
 </template>
@@ -88,6 +84,9 @@ export default {
     },
     loadAtOnce() {
       return this.$store.getters.loadAtOnce;
+    },
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
     }
   },
   watch: {
@@ -102,8 +101,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.brewery-column {
+.brewery-column-light {
   box-shadow: 1px 1px 5px rgb(244, 244, 244);
+}
+.brewery-column-dark {
+  box-shadow: 1px 1px 5px rgb(53, 53, 53);
 }
 .brewery-title {
   height: 60px;

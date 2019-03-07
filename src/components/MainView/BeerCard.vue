@@ -1,5 +1,5 @@
 <template>
-  <article class="box">
+  <article class="box" :class="[themeIsDark ? 'has-background-grey-darker has-text-light' : '']">
     <div class="media">
       <div class="media-left">
         <figure
@@ -12,15 +12,17 @@
       <div class="media-content">
         <p class="media-text">
           Beer name:
-          <strong>{{beer.name}}</strong>
+          <strong :class="[themeIsDark ? 'has-text-light' : '']">{{beer.name}}</strong>
         </p>
         <p class="media-text">
           Beer type:
-          <strong>{{beer.type}}</strong>
+          <strong :class="[themeIsDark ? 'has-text-light' : '']">{{beer.type}}</strong>
         </p>
         <p class="media-text">
           Beer price per litre:
-          <strong>{{beer.pricePerLitre}}</strong>
+          <strong
+            :class="[themeIsDark ? 'has-text-light' : '']"
+          >{{beer.pricePerLitre}}</strong>
         </p>
       </div>
     </div>
@@ -43,6 +45,11 @@ export default {
           alt: data[1]
         }
       });
+    }
+  },
+  computed: {
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
     }
   }
 };

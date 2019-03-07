@@ -16,6 +16,9 @@ export default {
   computed: {
     getColumnsNumber() {
       return this.$store.getters.columnsNumber;
+    },
+    themeIsDark() {
+      return this.$store.getters.layoutDark;
     }
   }
 };
