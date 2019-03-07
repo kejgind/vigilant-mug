@@ -7,13 +7,15 @@ import actions from "./actions";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  strict: true,
+  strict: process.env.NODE_ENV !== "production",
   state: {
     beers: [],
     brewers: [],
-    filterBy: 'name',
+    sortBeersBy: "name",
     layoutDark: false,
-    showItems: 15,
+    loadAtOnce: 15,
+    columnsNumber: 3,
+    error: null,
   },
   getters,
   mutations,
