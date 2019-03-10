@@ -3,10 +3,10 @@
     <div class="media">
       <div class="media-left">
         <figure
-          class="image is-40x40 beer-image is-size-7"
+          class="image is-square is-40x40 beer-image is-size-7"
           @click="showImage([beer.image_url, beer.name])"
         >
-          <img class="is-rounded" :src="beer.image_url" :alt="beer.name">
+          <img class="image-small" :src="beer.image_url" :alt="beer.name" @error="placeholderImg">
         </figure>
       </div>
       <div class="media-content">
@@ -31,6 +31,7 @@
 
 <script>
 import BeerImageModal from "@/components/MainView/BeerImageModal";
+import { loadPlaceholderImg } from "@/functions/loadPlaceholderImg";
 export default {
   name: "BeerCard",
   props: { beer: Object },
@@ -45,6 +46,9 @@ export default {
           alt: data[1]
         }
       });
+    },
+    placeholderImg(e) {
+      loadPlaceholderImg(e);
     }
   },
   computed: {
@@ -61,6 +65,9 @@ export default {
 }
 .beer-image {
   cursor: pointer;
+}
+.image-small {
+  border-radius: 50%;
 }
 </style>
 

@@ -12,9 +12,11 @@ export default {
   name: "app",
   components: { Navbar, MainView },
   beforeCreate() {
+    // On page/app reload check session storage and mutate vuex store is session storage for this page/app exists
     this.$store.commit("INITIALIZE_STORE");
   },
   created() {
+    // On page/app start check if store is empty, and if so get data from API
     if (this.$store.getters.allBeers.length === 0) {
       this.$store.dispatch("getAllBeers");
     }

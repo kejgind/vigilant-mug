@@ -35,10 +35,12 @@ export default {
     };
   },
   created() {
+    // Action to create and add object in global store for each column in "state.selectedBrewers" containing column Id and name of selected brewer, for use with session storage
     this.$store.dispatch("addEmptyBrewery", {
       colId: this.colKey,
       selectedBrewer: this.selectedBrewery
     });
+    // Getter to grab selected brewer for each column
     this.$store.getters.loadSelectedBrewers.filter(brewer =>
       brewer.colId === this.colKey
         ? (this.selectedBrewery = brewer.selectedBrewer)
@@ -47,56 +49,77 @@ export default {
     this.getBeersByBrewery();
   },
   methods: {
+    // Method responsible for load more beers from brewer
     loadMore() {
+
+      // create array with next batch of beers that will be loaded on "load more beers" button click
       const nextBeersBatchToLoad = this.allBeersByBrewery.splice(
         0,
         this.loadAtOnce
       );
+
+      // add this batch to currently loaded and showed beers
       this.showedBeersByBrewery = [
         ...this.showedBeersByBrewery,
         ...nextBeersBatchToLoad
       ];
+
+      // count beers in each array (showed on screen) and left to show
       this.beersByBreweryCountAll = this.allBeersByBrewery.length;
       this.beersByBreweryCountShowed = this.showedBeersByBrewery.length;
 
+      // check if 'load more beers' button should be visible
       this.beersByBreweryCountAll > 0
         ? (this.showButton = true)
         : (this.showButton = false);
     },
+    // Method responsible for grabbing all beers by selected brewer and displaying them accordingly to options set in main app option modal (sort, how many to show on initial load)
     getBeersByBrewery() {
       if (!this.selectedBrewery) {
         return;
       }
 
+      // Save information of selected brewer for each column in vuex store
       this.$store.dispatch("addSelectedBrewer", {
         colId: this.colKey,
         selectedBrewer: this.selectedBrewery
       });
 
+      // get all beers from vuex store
       const allBeers = this.$store.getters.allBeers;
+
+      // filter beers to show only those from selected brewer
       const filteredBeersByBrewery = allBeers.filter(beer => {
         return beer.brewer === this.selectedBrewery;
       });
+
+      // sort beers from brewer by option set in global app options modal
       this.allBeersByBrewery = filteredBeersByBrewery.sort(
         sorter(this.sortBeersBy)
       );
+
+      // create array of beers show in column on start (no more than value set in global options modal 15 or 30), if there are more than value set in options the remaining beers will be left in local state 'allBeersByBrewery'
       this.showedBeersByBrewery = this.allBeersByBrewery.splice(
         0,
         this.loadAtOnce
       );
 
+      // count beers in each array (showed on screen) and left to show
       this.beersByBreweryCountAll = this.allBeersByBrewery.length;
       this.beersByBreweryCountShowed = this.showedBeersByBrewery.length;
 
+      // check if 'load more beers' button should be visible
       this.beersByBreweryCountAll > 0
         ? (this.showButton = true)
         : (this.showButton = false);
     }
   },
   computed: {
+    // grab array of all brewers from vuex store
     breweries() {
       return this.$store.getters.allBrewers;
     },
+    // get what options are set in global options modal
     sortBeersBy() {
       return this.$store.getters.sortBeersBy;
     },
@@ -108,9 +131,11 @@ export default {
     }
   },
   watch: {
+    // watch for changes in sort option set in global options modal and on value change sort displayed beers
     sortBeersBy() {
       return this.showedBeersByBrewery.sort(sorter(this.sortBeersBy));
     },
+    // update value of 'beersByBreweryCountAll' in local state
     allBeersByBrewery() {
       return this.beersByBreweryCountAll.length;
     }
